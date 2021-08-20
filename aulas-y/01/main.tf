@@ -16,7 +16,7 @@ provider "aws" {
 }
 
 resource "aws_s3_bucket" "my-tf-test-bucket" {
-  bucket = "my-tf-test-bucket-hjunior"
+  bucket = "my-tf-test-bucket-hjunior21"
   acl    = "private"
   tags = {
     Name        = "My bucket"
