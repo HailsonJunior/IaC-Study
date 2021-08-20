@@ -7,12 +7,12 @@ terraform {
     }
 
     required_version = ">= 0.14.9"
-    shared_credentials_file = "/home/hailson.junior/.aws/credentials"
-    profile = "Terraform"
 }
 
 provider "aws" {
     region = "us-east-1"
+    shared_credentials_file = "/home/hailson.junior/.aws/credentials"
+    profile = "Terraform"
 }
 
 resource "aws_s3_bucket" "my-tf-test-bucket" {
