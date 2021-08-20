@@ -7,6 +7,8 @@ terraform {
     }
 
     required_version = ">= 0.14.9"
+    shared_credentials_file = "/home/hailson.junior/.aws/credentials"
+    profile = "Terraform"
 }
 
 provider "aws" {
