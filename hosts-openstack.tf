@@ -25,7 +25,7 @@ resource "aws_instance" "controller" {
 }
 
 resource "aws_key_pair" "key_openstack" {
-    key_name = "my_key"
+    key_name = "key_openstack"
     public_key = "${file("/home/hailson.junior/.ssh/id_rsa.pub")}"
 }
 
@@ -46,7 +46,7 @@ resource "aws_security_group" "allow_ssh" {
 }
 
 resource "aws_ebs_volume" "volume_controller" {
-    availability_zone = "us-west-2a"
+    availability_zone = "us-east-1b"
     size = 30
 }
 
