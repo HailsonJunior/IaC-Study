@@ -17,14 +17,14 @@ provider "aws" {
 resource "aws_instance" "controller" {
     ami = "ami-0cb5f8e033cfa84d2"
     instance_type = "t2.large"
-    key_name = "${aws_key_pair.my_key.key_name}"
+    key_name = "${aws_key_pair.key_openstack.key_name}"
     security_groups = []
     tags = {
         Name = "Controller Node"
     }
 }
 
-resource "aws_key_pair" "my_key" {
+resource "aws_key_pair" "key_openstack" {
     key_name = "my_key"
     public_key = "${file("/home/hailson.junior/.ssh/id_rsa.pub")}"
 }
@@ -46,14 +46,14 @@ resource "aws_security_group" "allow_ssh" {
 }
 
 resource "aws_ebs_volume" "volume_controller" {
-    availability_zone = "us-east-1"
+    availability_zone = "us-west-2a"
     size = 30
 }
 
 resource "aws_volume_attachment" "ebs_att_controller" {
     device_name = "/dev/sda"
-    volume_id = "aws_ebs_controller.id"
-    instance_id = "aws_instance.controller.id"
+    volume_id = "aws_ebs_controller.ad5e1b42-a999-4d1c-90a7-59ff7858d973"
+    instance_id = "ad5e1b42-a999-4d1c-90a7-59ff7858d973"
 }
 
 output "public_dns_controller" {
