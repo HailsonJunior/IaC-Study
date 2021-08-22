@@ -25,14 +25,77 @@ resource "aws_instance" "controller" {
         volume_type = "gp2"
         delete_on_termination = true
     }
+     
+    tags = {
+        Name = "Controller Node 1"
+    }
+}
 
-    network_interface {
-        network_interface_id = aws_network_interface.openstack[each.key].id
-        device_index = 0
+resource "aws_instance" "compute" {
+    ami = "ami-0cb5f8e033cfa84d2"
+    instance_type = "t2.large"
+    key_name = "${aws_key_pair.key_openstack.key_name}"
+    security_groups = ["${aws_security_group.allow_ssh.name}"]
+    
+    root_block_device {
+        volume_size = 30
+        volume_type = "gp2"
+        delete_on_termination = true
     }
      
     tags = {
-        Name = "Controller Node"
+        Name = "Compute Node 1"
+    }
+}
+
+resource "aws_instance" "block_storage_1" {
+    ami = "ami-0cb5f8e033cfa84d2"
+    instance_type = "t2.medium"
+    key_name = "${aws_key_pair.key_openstack.key_name}"
+    security_groups = ["${aws_security_group.allow_ssh.name}"]
+    
+    root_block_device {
+        volume_size = 30
+        volume_type = "gp2"
+        delete_on_termination = true
+    }
+     
+    tags = {
+        Name = "Block Storage Node 1"
+    }
+}
+
+resource "aws_instance" "object_storage_1" {
+    ami = "ami-0cb5f8e033cfa84d2"
+    instance_type = "t2.medium"
+    key_name = "${aws_key_pair.key_openstack.key_name}"
+    security_groups = ["${aws_security_group.allow_ssh.name}"]
+    
+    root_block_device {
+        volume_size = 30
+        volume_type = "gp2"
+        delete_on_termination = true
+    }
+     
+    tags = {
+        Name = "Object Storage Node 1"
+    }
+}
+
+resource "aws_instance" "object_storage_2" {
+    ami = "ami-0cb5f8e033cfa84d2"
+    instance_type = "t2.medium"
+    key_name = "${aws_key_pair.key_openstack.key_name}"
+    security_groups = ["${aws_security_group.allow_ssh.name}"]
+    
+    root_block_device {
+        volume_size = 30
+        volume_type = "gp2"
+        delete_on_termination = true
+    }
+     
+    tags = {
+        Name = "Object Storage Node 2"
     }
 }
 
@@ -57,18 +120,8 @@ resource "aws_security_group" "allow_ssh" {
     }
 }
 
-locals {
-    ip_range = [for val in range(100, 120): "172.31.64.${val}"]
-}
-
-resource "aws_network_interface" "openstack" {
-    for_each = toset(local.ip_range)
-    subnet_id = "subnet-3a5ad31b"
-    private_ips = [each.key]
-
-    tags = {
-        Name = "Primary interface"
-    }
+output "private_ip" {
+    value = "${aws_instance.controller.private_ip}"
 }
 
 output "public_dns_controller" {
