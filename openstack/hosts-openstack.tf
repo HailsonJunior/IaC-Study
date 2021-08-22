@@ -18,7 +18,21 @@ resource "aws_instance" "controller" {
     ami = "ami-0cb5f8e033cfa84d2"
     instance_type = "t2.large"
     key_name = "${aws_key_pair.key_openstack.key_name}"
-    security_groups = []
+    security_groups = ["${aws_security_group.allow_ssh.name}"]
+    
+    root_block_device {
+        volume_size = 20
+        volume_type = "gp2"
+        delete_on_termination = true
+    }
+
+    ebs_block_device {
+        device_name = "/dev/sda"
+        volume_size = "30"
+        volume_type = "gp2"
+        delete_on_termination = true
+    }
+    
     tags = {
         Name = "Controller Node"
     }
@@ -43,17 +57,6 @@ resource "aws_security_group" "allow_ssh" {
         protocol = -1
         cidr_blocks = ["0.0.0.0/0"]
     }
-}
-
-resource "aws_volume_attachment" "ebs_att" {
-    device_name = "/dev/sda"
-    volume_id = "aws_ebs_volume.volume_controller.id"
-    instance_id = "aws_instance.controller.id"
-}
-
-resource "aws_ebs_volume" "volume_controller" {
-    availability_zone = "us-east-1b"
-    size = 30
 }
 
 output "public_dns_controller" {
