@@ -50,5 +50,5 @@ output "public_dns_controller" {
 }
 
 output "server_id1" {
-  value = "${aws_instance.controller.0.id}"
+  value = "${aws_instance.controller.id}"
 }
