@@ -21,18 +21,16 @@ resource "aws_instance" "controller" {
     security_groups = ["${aws_security_group.allow_ssh.name}"]
     
     root_block_device {
-        volume_size = 20
+        volume_size = 30
         volume_type = "gp2"
         delete_on_termination = true
     }
 
-    ebs_block_device {
-        device_name = "/dev/xvda"
-        volume_size = "30"
-        volume_type = "gp2"
-        delete_on_termination = true
+    network_interface {
+        network_interface_id = aws_network_interface.openstack[each.key].id
+        device_index = 0
     }
-    
+     
     tags = {
         Name = "Controller Node"
     }
@@ -56,6 +54,20 @@ resource "aws_security_group" "allow_ssh" {
         to_port = 0
         protocol = -1
         cidr_blocks = ["0.0.0.0/0"]
+    }
+}
+
+locals {
+    ip_range = [for val in range(100, 120): "172.31.64.${val}"]
+}
+
+resource "aws_network_interface" "openstack" {
+    for_each = toset(local.ip_range)
+    subnet_id = "subnet-3a5ad31b"
+    private_ips = [each.key]
+
+    tags = {
+        Name = "Primary interface"
     }
 }
 
