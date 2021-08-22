@@ -45,17 +45,10 @@ resource "aws_security_group" "allow_ssh" {
     }
 }
 
-resource "aws_ebs_volume" "volume_controller" {
-    availability_zone = "us-east-1b"
-    size = 30
-}
-
-resource "aws_volume_attachment" "ebs_att_controller" {
-    device_name = "/dev/sda"
-    volume_id = "aws_ebs_controller.ad5e1b42-a999-4d1c-90a7-59ff7858d973"
-    instance_id = "ad5e1b42-a999-4d1c-90a7-59ff7858d973"
-}
-
 output "public_dns_controller" {
     value = "${aws_instance.controller.public_dns}"
+}
+
+output "server_id1" {
+  value = "${aws_instance.controller.0.id}"
 }
