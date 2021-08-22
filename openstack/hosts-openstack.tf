@@ -18,7 +18,7 @@ resource "aws_instance" "controller" {
     ami = "ami-0cb5f8e033cfa84d2"
     instance_type = "t2.large"
     key_name = "${aws_key_pair.key_openstack.key_name}"
-    security_groups = ["${aws_security_group.allow_ssh.name}"]
+    security_groups = ["${aws_security_group.Iac_group.name}"]
     
     root_block_device {
         volume_size = 30
@@ -35,7 +35,7 @@ resource "aws_instance" "compute" {
     ami = "ami-0cb5f8e033cfa84d2"
     instance_type = "t2.large"
     key_name = "${aws_key_pair.key_openstack.key_name}"
-    security_groups = ["${aws_security_group.allow_ssh.name}"]
+    security_groups = ["${aws_security_group.Iac_group.name}"]
     
     root_block_device {
         volume_size = 30
@@ -52,7 +52,7 @@ resource "aws_instance" "block_storage_1" {
     ami = "ami-0cb5f8e033cfa84d2"
     instance_type = "t2.medium"
     key_name = "${aws_key_pair.key_openstack.key_name}"
-    security_groups = ["${aws_security_group.allow_ssh.name}"]
+    security_groups = ["${aws_security_group.Iac_group.name}"]
     
     root_block_device {
         volume_size = 30
@@ -69,7 +69,7 @@ resource "aws_instance" "object_storage_1" {
     ami = "ami-0cb5f8e033cfa84d2"
     instance_type = "t2.medium"
     key_name = "${aws_key_pair.key_openstack.key_name}"
-    security_groups = ["${aws_security_group.allow_ssh.name}"]
+    security_groups = ["${aws_security_group.Iac_group.name}"]
     
     root_block_device {
         volume_size = 30
@@ -86,7 +86,7 @@ resource "aws_instance" "object_storage_2" {
     ami = "ami-0cb5f8e033cfa84d2"
     instance_type = "t2.medium"
     key_name = "${aws_key_pair.key_openstack.key_name}"
-    security_groups = ["${aws_security_group.allow_ssh.name}"]
+    security_groups = ["${aws_security_group.Iac_group.name}"]
     
     root_block_device {
         volume_size = 30
@@ -104,8 +104,8 @@ resource "aws_key_pair" "key_openstack" {
     public_key = "${file("/home/hailson.junior/.ssh/id_rsa.pub")}"
 }
 
-resource "aws_security_group" "allow_ssh" {
-    name = "allow_ssh"
+resource "aws_security_group" "Iac_group" {
+    name = "Iac_group"
     ingress {
         from_port = 22
         to_port = 22
