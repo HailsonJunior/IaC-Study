@@ -10,14 +10,14 @@ terraform {
 }
 
 provider "aws" {
-    region = "var.aws_region"
-    shared_credentials_file = "var.aws_credential"
-    profile = "var.aws_profile"
+    region = var.aws_region
+    shared_credentials_file = var.aws_credential
+    profile = var.aws_profile
 }
 
 resource "aws_instance" "web" {
-    ami = "var.instance_ami"
-    instance_type = "var.instance_type"
+    ami = var.instance_ami
+    instance_type = var.instance_type
 
-    tags = "var.instance_tags"
+    tags = var.instance_tags
 }
