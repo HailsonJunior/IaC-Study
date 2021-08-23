@@ -10,7 +10,7 @@ variable "aws_profile" {
 
 variable "aws_credential" {
     type = string
-    description = "Credital AWS profile"
+    description = "AWS Credital"
 }
 
 variable "instance_tags" {
