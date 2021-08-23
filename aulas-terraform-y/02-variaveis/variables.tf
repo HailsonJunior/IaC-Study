@@ -1,31 +1,16 @@
 variable "aws_region" {
     type = string
-    description = ""
-    default = "us-east-1"
+    description = "Região do privider AWS"
 }
 
 variable "aws_profile" {
     type = string
-    description = ""
-    default = "Terraform"
+    description = "AWS profile"
 }
 
 variable "aws_credential" {
     type = string
-    description = ""
-    default = "/home/hailson.junior/.aws/credentials"
-}
-
-variable "instance_ami" {
-    type = string
-    description = ""
-    default = "ami-09e67e426f25ce0d7"
-}
-
-variable "instance_type" {
-    type = string
-    description = ""
-    default = "t2.micro"
+    description = "Credital AWS profile"
 }
 
 variable "instance_tags" {
