@@ -1,5 +1,5 @@
 resource "aws_s3_bucket" "this" {
-    bucket = "${randomPet.bucket.id}-${var.environment}"
+    bucket = "${random_pet.bucket.id}-${var.environment}"
 
     tags = {
         Service = "Curso Terraform"
