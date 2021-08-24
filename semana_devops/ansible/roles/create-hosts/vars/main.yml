@@ -1,0 +1,9 @@
+---
+# vars file for create-hosts
+instance_type: t2.micro
+security_group: giropops
+image: ami-09e67e426f25ce0d7
+keypair: semanadevops-ansible
+region: us-east-1
+count: 3
+aws_profile: Terraform
