@@ -1,5 +1,5 @@
 locals {
-    ip_filepath = "ips.json"
+    ip_filepath = "config/ips.json"
     common_tags = {
         Service = "Curso Terraform"
         ManagedBy = "Terraform"
