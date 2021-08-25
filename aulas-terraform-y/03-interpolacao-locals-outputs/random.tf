@@ -1,3 +1,3 @@
 resource "random_pet" "bucket" {
-    length = 10
+    length = 5
 }
