@@ -1,0 +1,39 @@
+- name: Install Ansible and curl
+  apt:
+    name: 
+      - ansible
+      - curl
+    state: latest
+
+- name: Install k3s
+  shell: 'curl -sfL https://get.k3s.io | INSTALL_K3S_VERSION=v1.21.1+k3s1 sh -s - --no-deploy=traefik'
+
+- name: Export variable KUBECONFIG
+  shell: export KUBECONFIG=/etc/rancher/k3s/k3s.yaml
+
+- name: Start k3s service
+  service:
+    name: k3s
+    state: started
+    enabled: yes
+
+- name: Install Helm
+  shell: 'curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash'
+
+- name: Helm Repo add traefik
+  shell: helm repo add traefik https://helm.traefik.io/traefik
+
+- name: Helm repo update
+  shell: helm repo update
+
+- name: Helm install traefik
+  shell: helm install traefik traefik/traefik
+
+- name: Install AWX Operator
+  shell: k3s kubectl apply -f https://raw.githubusercontent.com/ansible/awx-operator/devel/deploy/awx-operator.yaml
+
+- name: Sleep for 120 seconds and continue with play
+  wait_for:
+    timeout: 120
+
+- name: Copy File

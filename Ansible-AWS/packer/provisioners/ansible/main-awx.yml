@@ -1,0 +1,8 @@
+---
+- Name: Setup Ansible AWX
+  become: yes
+  become_method: sudo
+  roles:
+    - { role: setup-awx, tags: ["setup-awx"]}
+
+...

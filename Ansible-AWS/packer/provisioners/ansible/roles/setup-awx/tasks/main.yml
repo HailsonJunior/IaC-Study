@@ -1,2 +1,4 @@
 ---
-# tasks file for setup-awx
+- import_tasks: prepare-machine.yml
+- import_tasks: install-packages.yml
+- import_tasks: setup-awx.yml

@@ -1,0 +1,26 @@
+- name: apt update
+  apt:
+    update_cache: yes
+
+- name: apt upgrade
+  apt:
+    name: "*"
+    state: latest
+
+- name: Change hostname
+  hostname:
+    name: ansible-server
+
+- name: Disable Firewalld
+  service:
+    name: firewalld
+    state: stopped
+
+- name: Disable swap
+  shell: swapoff -a
+
+- name: Disable swap in fstab
+  replace:
+    path: /etc/fstab
+    regexp: '^([^#].*?\sswap\s+sw\s+.*)$'
+    replace: '# \1'    
