@@ -9,3 +9,6 @@
   copy:
     src: files/meu-awx.yml
     dest: /tmp/meu-awx.yml
+
+- name: Install AWX
+  shell: k3s kubectl apply -f /tmp/meu-awx.yml
