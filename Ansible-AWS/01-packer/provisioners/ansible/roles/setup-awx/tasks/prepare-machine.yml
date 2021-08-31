@@ -11,11 +11,6 @@
   hostname:
     name: ansible-server
 
-- name: Disable Firewalld
-  service:
-    name: firewalld
-    state: stopped
-
 - name: Disable swap
   shell: swapoff -a
 
@@ -24,6 +19,3 @@
     path: /etc/fstab
     regexp: '^([^#].*?\sswap\s+sw\s+.*)$'
     replace: '# \1'    
-
-- name: Create rule in iptables
-  shell: 'iptables -I INPUT 3 -s 10.42.0.0/16 -j ACCEPT && iptables -I INPUT 3 -d 10.42.0.0/16 -j ACCEPT'  

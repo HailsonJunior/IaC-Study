@@ -12,3 +12,7 @@
 
 - name: Install AWX
   shell: k3s kubectl apply -f /tmp/meu-awx.yml
+
+- name: Sleep for 600 seconds and continue with play
+  wait_for:
+    timeout: 600

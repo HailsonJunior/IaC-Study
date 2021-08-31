@@ -16,15 +16,3 @@
     name: k3s
     state: started
     enabled: yes
-
-- name: Install Helm
-  shell: 'curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash'
-
-- name: Helm Repo add traefik
-  shell: helm repo add traefik https://helm.traefik.io/traefik
-
-- name: Helm repo update
-  shell: helm repo update
-
-- name: Helm install traefik
-  shell: helm install traefik traefik/traefik
