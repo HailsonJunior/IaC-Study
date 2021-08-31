@@ -1,3 +1,4 @@
+*.pem
 *.dll
 *.exe
 .DS_Store
