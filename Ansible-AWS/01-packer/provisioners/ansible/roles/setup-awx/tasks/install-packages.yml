@@ -21,7 +21,7 @@
   shell: curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash
 
 - name: Add traefik repo
-  shell: helm repo add traefik
+  shell: helm repo add traefik https://helm.traefik.io/traefik
 
 - name: Update repo helm
   shell: helm repo update
