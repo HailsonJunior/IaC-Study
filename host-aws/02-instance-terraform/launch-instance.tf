@@ -18,6 +18,9 @@ resource "aws_instance" "aws-host" {
     instance_type = "t2.micro"
     key_name = "iac-new.pem"
     security_groups = [ "iac-group" ]
+    tags = {
+      "Name" = "aws-study"
+    }
 }
 
 output "aws_public_dns" {
