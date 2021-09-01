@@ -13,7 +13,7 @@
         "instance_type": "t2.micro",
         "ssh_username": "ubuntu",
         "ami_name": "AWS-Study",
-        "ssh-keypair_name": "iac-new",
+        "ssh_keypair_name": "iac-new",
         "ssh_private_key_file": "iac-new.pem",
         "vpc_id": "{{user `vpc_id`}}"
     }],
