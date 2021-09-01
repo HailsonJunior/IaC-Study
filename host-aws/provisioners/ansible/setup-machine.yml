@@ -1,0 +1,29 @@
+---
+- name: Setup machine AWS
+  hosts: 'all'
+  become: yes
+  become_method: sudo
+  tasks:
+    - name: apt update
+      apt:
+        update_cache: yes
+
+    - name: apt upgrade
+      apt:
+        name: "*"
+        state: latest
+
+    - name: Change Hostname
+      hostname:
+        name: aws-server
+
+    - name: Curl awscli exec
+      shell: curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+
+    - name: Unzip awscli zip
+      ansible.builtin.unarchive:
+        src: awscliv2.zip
+        dest: awscliv2
+      
+    - name: Install awscli
+      shell: ./aws/install
