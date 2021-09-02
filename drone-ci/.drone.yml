@@ -1,0 +1,38 @@
+---
+kind: pipeline
+type: docker
+name: default
+
+steps:
+- name: validate
+  image: hashicorp/packer:light
+  commands:
+    - apk -U add ansible
+    - packer validate packer/*.json
+
+- name: build
+  image: hashicorp/packer:light
+  environment:
+    AWS_ACCESS_KEY_ID:
+      from_secret: AWS_ACCESS_KEY_ID
+    AWS_SECRET_ACCESS_KEY:
+      from_secret: AWS_SECRET_ACCESS_KEY
+    VPC_ID:
+      from_secret: VPC_ID
+    SUBNET_ID:
+      from_secret: SUBNET_ID
+  commands:
+    - apk -U add ansible
+    - packer build packer/opa.json
+
+- name: terraform plan and apply
+  image: hashicorp/terraform:light
+  environment:
+    AWS_ACCESS_KEY_ID:
+      from_secret: AWS_ACCESS_KEY_ID
+    AWS_SECRET_ACCESS_KEY:
+      from_secret: AWS_SECRET_ACCESS_KEY
+  commands:
+    - terraform -chdir=terraform/ init
+    - terraform -chdir=terraform/ plan -out plano
+    - terraform -chdir=terraform apply -auto-approve
